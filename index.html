@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#4f46e5">
+  <title>StudyTask | Student Task Manager</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="app.js" defer></script>
+</head>
+<body>
+
+  <!-- LOGIN PAGE -->
+  <section id="loginPage" class="auth-page">
+    <div class="auth-card">
+      <div class="brand-icon">ST</div>
+      <h1>Welcome Back!</h1>
+      <p class="muted">Log in to manage your study tasks.</p>
+
+      <form id="loginForm">
+        <div class="form-group">
+          <label for="loginEmail">Email Address</label>
+          <input id="loginEmail" type="email"
+                 placeholder="student@example.com" required>
+        </div>
+
+        <div class="form-group">
+          <label for="loginPassword">Password</label>
+          <input id="loginPassword" type="password"
+                 placeholder="Enter your password" required>
+        </div>
+
+        <p id="loginMessage" class="message"
+           aria-live="polite"></p>
+
+        <button type="submit" class="btn btn-primary full-width">
+          Login
+        </button>
+      </form>
+
+      <p class="auth-footer">
+        Don't have an account?
+        <button type="button" class="text-button"
+                data-show="registerPage">Create one</button>
+      </p>
+    </div>
+  </section>
+
+  <!-- REGISTRATION PAGE -->
+  <section id="registerPage" class="auth-page" hidden>
+    <div class="auth-card">
+      <div class="brand-icon">ST</div>
+      <h1>Create Account</h1>
+      <p class="muted">Start organizing your studies today.</p>
+
+      <form id="registerForm">
+        <div class="form-group">
+          <label for="registerName">Full Name</label>
+          <input id="registerName" type="text"
+                 placeholder="Enter your full name"
+                 maxlength="80" required>
+        </div>
+
+        <div class="form-group">
+          <label for="registerEmail">Email Address</label>
+          <input id="registerEmail" type="email"
+                 placeholder="student@example.com" required>
+        </div>
+
+        <div class="form-group">
+          <label for="registerPassword">Password</label>
+          <input id="registerPassword" type="password"
+                 placeholder="At least 8 characters"
+                 minlength="8" required>
+        </div>
+
+        <div class="form-group">
+          <label for="confirmPassword">Confirm Password</label>
+          <input id="confirmPassword" type="password"
+                 placeholder="Enter password again" required>
+        </div>
+
+        <p id="registerMessage" class="message"
+           aria-live="polite"></p>
+
+        <button type="submit" class="btn btn-primary full-width">
+          Register
+        </button>
+      </form>
+
+      <p class="auth-footer">
+        Already registered?
+        <button type="button" class="text-button"
+                data-show="loginPage">Login</button>
+      </p>
+    </div>
+  </section>
+
+  <!-- MAIN DASHBOARD -->
+  <section id="dashboardPage" hidden>
+    <header class="topbar">
+      <a href="#" class="brand" aria-label="StudyTask home">
+        <span class="brand-icon small">ST</span>
+        <span>StudyTask</span>
+      </a>
+
+      <div class="user-area">
+        <span id="welcomeUser">Hello, Student</span>
+        <button id="logoutBtn" class="btn btn-outline" type="button">
+          Logout
+        </button>
+      </div>
+    </header>
+
+    <main class="container">
+
+      <!-- Welcome -->
+      <section class="welcome-section">
+        <p class="eyebrow">YOUR PERSONAL STUDY SPACE</p>
+        <h1>Manage your study tasks</h1>
+        <p class="muted">
+          Organize your assignments, track your progress,
+          and stay on top of your deadlines.
+        </p>
+      </section>
+
+      <!-- Statistics -->
+      <section class="stats-grid" aria-label="Task statistics">
+        <article class="stat-card">
+          <span>Total Tasks</span>
+          <strong id="totalTasks">0</strong>
+          <small>All your study activities</small>
+        </article>
+
+        <article class="stat-card">
+          <span>Completed</span>
+          <strong id="completedTasks">0</strong>
+          <small>Tasks you've finished</small>
+        </article>
+
+        <article class="stat-card">
+          <span>Pending</span>
+          <strong id="pendingTasks">0</strong>
+          <small>Tasks still to do</small>
+        </article>
+
+        <article class="stat-card">
+          <span>Overdue</span>
+          <strong id="overdueTasks">0</strong>
+          <small>Tasks past their deadline</small>
+        </article>
+      </section>
+
+      <!-- Progress -->
+      <section class="panel progress-panel">
+        <div class="progress-heading">
+          <div>
+            <h2>Study Progress</h2>
+            <p class="muted">Keep going, one task at a time.</p>
+          </div>
+          <strong id="progressPercent">0%</strong>
+        </div>
+
+        <div class="progress-track"
+             role="progressbar"
+             aria-label="Completed task percentage"
+             aria-valuemin="0"
+             aria-valuemax="100"
+             aria-valuenow="0"
+             id="progressBar">
+          <div id="progressFill" class="progress-fill"></div>
+        </div>
+      </section>
+
+      <!-- Add task -->
+      <section class="panel">
+        <div class="section-heading">
+          <div>
+            <h2>Add a New Task</h2>
+            <p class="muted">
+              Enter your assignment or study activity below.
+            </p>
+          </div>
+        </div>
+
+        <form id="taskForm" class="task-form">
+          <div class="form-group">
+            <label for="taskTitle">Task Title *</label>
+            <input id="taskTitle" type="text"
+                   placeholder="e.g. Complete C programming assignment"
+                   maxlength="120" required>
+          </div>
+
+          <div class="form-group">
+            <label for="taskSubject">Subject / Course *</label>
+            <input id="taskSubject" type="text"
+                   placeholder="e.g. Software Development"
+                   maxlength="80" required>
+          </div>
+
+          <div class="form-group">
+            <label for="taskDueDate">Due Date</label>
+            <input id="taskDueDate" type="date">
+          </div>
+
+          <div class="form-group">
+            <label for="taskPriority">Priority</label>
+            <select id="taskPriority">
+              <option value="Normal">Normal</option>
+              <option value="High">High</option>
+              <option value="Low">Low</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="taskCategory">Task Type</label>
+            <select id="taskCategory">
+              <option value="Assignment">Assignment</option>
+              <option value="Revision">Revision</option>
+              <option value="Project">Project</option>
+              <option value="Reading">Reading</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="taskNotes">Notes (Optional)</label>
+            <input id="taskNotes" type="text"
+                   placeholder="Additional details..."
+                   maxlength="250">
+          </div>
+
+          <div class="form-actions">
+            <button type="submit" class="btn btn-primary">
+              + Add Task
+            </button>
+            <button id="cancelEditBtn" type="button"
+                    class="btn btn-outline" hidden>
+              Cancel Edit
+            </button>
+          </div>
+        </form>
+
+        <p id="taskMessage" class="message"
+           aria-live="polite"></p>
+      </section>
+
+      <!-- Task list -->
+      <section class="panel">
+        <div class="list-heading">
+          <div>
+            <h2>My Tasks</h2>
+            <p class="muted">
+              View, search, edit, and update your tasks.
+            </p>
+          </div>
+
+          <input id="searchTasks" type="search"
+                 placeholder="Search title or subject..."
+                 aria-label="Search tasks">
+        </div>
+
+        <div class="task-toolbar">
+          <div class="filters" aria-label="Filter tasks">
+            <button type="button" class="filter-btn active"
+                    data-filter="all" aria-pressed="true">
+              All Tasks
+            </button>
+            <button type="button" class="filter-btn"
+                    data-filter="pending" aria-pressed="false">
+              Pending
+            </button>
+            <button type="button" class="filter-btn"
+                    data-filter="completed" aria-pressed="false">
+              Completed
+            </button>
+            <button type="button" class="filter-btn"
+                    data-filter="overdue" aria-pressed="false">
+              Overdue
+            </button>
+          </div>
+
+          <div class="sort-control">
+            <label for="sortTasks">Sort:</label>
+            <select id="sortTasks">
+              <option value="newest">Newest first</option>
+              <option value="oldest">Oldest first</option>
+              <option value="dueDate">Due date</option>
+              <option value="priority">Priority</option>
+              <option value="title">Title A–Z</option>
+            </select>
+          </div>
+        </div>
+
+        <div id="taskList" class="task-list"></div>
+
+        <div id="emptyMessage" class="empty-message">
+          <div class="empty-icon">📚</div>
+          <h3>No tasks yet</h3>
+          <p>Add your first study task to get started!</p>
+        </div>
+
+        <div class="list-footer">
+          <span id="taskCount">0 tasks</span>
+          <button id="clearCompletedBtn" type="button"
+                  class="btn btn-outline">
+            Clear Completed
+          </button>
+        </div>
+      </section>
+
+      <footer class="page-footer">
+        <p>StudyTask — Plan your work. Achieve your goals.</p>
+        <p>Your study tasks are saved in this browser.</p>
+      </footer>
+
+    </main>
+  </section>
+
+  <!-- Confirmation dialog for deleting all completed tasks -->
+  <dialog id="confirmDialog" class="confirm-dialog">
+    <h2 id="dialogTitle">Confirm action</h2>
+    <p id="dialogMessage">Are you sure?</p>
+    <div class="dialog-actions">
+      <button id="dialogCancel" type="button"
+              class="btn btn-outline">Cancel</button>
+      <button id="dialogConfirm" type="button"
+              class="btn btn-danger">Confirm</button>
+    </div>
+  </dialog>
+
+</body>
+</html>
